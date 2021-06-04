@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pedidosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'pedidos.dbo.Mozo' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="Mozo">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Nombre" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'pedidos.dbo.Pedido' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="Pedido">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ID_Cliente" />
+      <PropertyRef Name="ID_Mozo" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Cliente" Type="int" Nullable="false" />
+    <Property Name="ID_Mozo" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="date" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'pedidos.dbo.PedidoProducto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="PedidoProducto">
+    <Key>
+      <PropertyRef Name="ID_Producto" />
+      <PropertyRef Name="ID_Pedido" />
+      <PropertyRef Name="Cantidad" />
+    </Key>
+    <Property Name="ID_Producto" Type="int" Nullable="false" />
+    <Property Name="ID_Pedido" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Precio" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="pedidosModelStoreContainer">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mozo" EntityType="Self.Mozo" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Mozo].[ID] AS [ID], 
+[Mozo].[Nombre] AS [Nombre]
+FROM [dbo].[Mozo] AS [Mozo]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Pedido" EntityType="Self.Pedido" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Pedido].[ID] AS [ID], 
+[Pedido].[ID_Cliente] AS [ID_Cliente], 
+[Pedido].[ID_Mozo] AS [ID_Mozo], 
+[Pedido].[Fecha] AS [Fecha]
+FROM [dbo].[Pedido] AS [Pedido]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="PedidoProducto" EntityType="Self.PedidoProducto" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[PedidoProducto].[ID_Producto] AS [ID_Producto], 
+[PedidoProducto].[ID_Pedido] AS [ID_Pedido], 
+[PedidoProducto].[Cantidad] AS [Cantidad]
+FROM [dbo].[PedidoProducto] AS [PedidoProducto]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

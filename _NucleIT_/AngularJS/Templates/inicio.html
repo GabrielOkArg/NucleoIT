@@ -1,0 +1,55 @@
+﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<div class="container" >
+    <h2>Buscador de pedidos</h2>
+    <div class="row" style="margin-top:6em">
+        <form style="width:400px">
+            <div class="mb-3">
+                <label  id="texto" style="margin-bottom:10px">Ingrese el numero de pedido</label>
+                <input ng-model="sendID" type="number" min="1" class="form-control" id="numPedido" style="margin-bottom:10px" />
+                <button ng-click="sendData()"  class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span><strong>Fecha: </strong>{{id.Fecha}}</span>
+        </div>
+        <div class="col">
+            <span style="float:right"><strong>Numero: </strong>37</span>
+        </div>   
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col">
+            <span><strong>Cliente: </strong>{{id.Cliente}}</span>
+        </div>
+        <div class="col">
+            <span><strong>Mozo: </strong>{{id.Mozo}}</span>
+        </div>
+        <hr />
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <th scope="col">Producto</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">SubTotal</th>
+            </thead>
+            <tbody ng-repeat="pro in id.Productos">
+                <tr>
+                    <td>{{pro.Nombre}}</td>
+                    <td>{{pro.Precio}}</td>
+                    <td>{{pro.Cantidad}}</td>
+                    <td>{{pro.Total}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Total: {{id.Total}}</h5>
+    </div>
+    <div class="row">
+        <div class="col">
+
+        </div>
+    </div>
+</div>
